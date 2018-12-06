@@ -1,0 +1,1251 @@
+---
+swagger: "2.0"
+info:
+  description: "Documentação das API do sistema Jobify."
+  version: "1.0.0"
+  title: "Jobify API"
+  contact:
+    email: "bruno95edu@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "virtserver.swaggerhub.com"
+basePath: "/brunoedu/Jobify/1.0.0"
+tags:
+- name: "admins"
+  description: "Acessado somente por administradores"
+- name: "users"
+  description: "Acessado somente por usuários"
+schemes:
+- "https"
+paths:
+  /categories/jobs:
+    get:
+      tags:
+      - "admins"
+      - "users"
+      summary: "Lista todas as categorias de serviço"
+      description: "Lista todas as categorias de serviços podendo conter alguns filtros\n"
+      operationId: "getAllJobCategories"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "skip"
+        in: "query"
+        description: "Número de categorias a pular para paginação"
+        required: false
+        type: "integer"
+        minimum: 0
+        format: "int32"
+      - name: "limit"
+        in: "query"
+        description: "Número máximo de categorias a retornar"
+        required: false
+        type: "integer"
+        maximum: 50
+        minimum: 0
+        format: "int32"
+      responses:
+        200:
+          description: "Lista de categorias de serviço"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/JobCategory"
+        400:
+          description: "Parâmetros inválidos"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Admins"
+    post:
+      tags:
+      - "admins"
+      summary: "Cria uma nova categoria de serviço"
+      description: "Cria uma nova categoria de serviço"
+      operationId: "postJobCategory"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "jobCategory"
+        description: "Categoria de serviço a ser adicionada"
+        required: true
+        schema:
+          $ref: "#/definitions/JobCategory"
+      responses:
+        201:
+          description: "Categoria criada"
+        400:
+          description: "Objeto de categoria inválido"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        409:
+          description: "Uma categoria com este nome já existe"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Admins"
+    put:
+      tags:
+      - "admins"
+      summary: "Edita uma nova categoria de serviço"
+      description: "Edita uma nova categoria de serviço"
+      operationId: "putJobCategory"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "jobCategory"
+        description: "Categoria de serviço a ser editada"
+        required: true
+        schema:
+          $ref: "#/definitions/JobCategory"
+      responses:
+        200:
+          description: "Categoria editada"
+        400:
+          description: "Objeto de categoria inválido"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        404:
+          description: "Categoria não encontrada"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Admins"
+  /categories/suggestions:
+    get:
+      tags:
+      - "admins"
+      - "users"
+      summary: "Lista todas as categorias de sugestões"
+      description: "Lista todas as categorias de sugestões podendo conter alguns filtros\n"
+      operationId: "getAllSuggestionsCategories\L"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "skip"
+        in: "query"
+        description: "Número de categorias a pular para paginação"
+        required: false
+        type: "integer"
+        minimum: 0
+        format: "int32"
+      - name: "limit"
+        in: "query"
+        description: "Número máximo de categorias a retornar"
+        required: false
+        type: "integer"
+        maximum: 50
+        minimum: 0
+        format: "int32"
+      responses:
+        200:
+          description: "Lista de categorias de sugestões"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/SuggestionCategory"
+        400:
+          description: "Parâmetros inválidos"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Admins"
+    post:
+      tags:
+      - "admins"
+      summary: "Cria uma nova categoria de sugestão"
+      description: "Cria uma nova categoria de sugestão"
+      operationId: "postSuggestionCategory"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "suggestionCategory"
+        description: "Categoria de sugestão a ser adicionada"
+        required: true
+        schema:
+          $ref: "#/definitions/SuggestionCategory"
+      responses:
+        201:
+          description: "Categoria criada"
+        400:
+          description: "Objeto de categoria inválido"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        409:
+          description: "Uma categoria com este nome já existe"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Admins"
+    put:
+      tags:
+      - "admins"
+      summary: "Edita uma nova categoria de sugestão"
+      description: "Edita uma nova categoria de sugestão"
+      operationId: "putSuggestionCategory"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "suggestionCategory"
+        description: "Categoria de sugestão a ser editada"
+        required: true
+        schema:
+          $ref: "#/definitions/SuggestionCategory"
+      responses:
+        200:
+          description: "Categoria editada"
+        400:
+          description: "Objeto de categoria inválido"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        404:
+          description: "Categoria não encontrada"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Admins"
+  /suggestions:
+    get:
+      tags:
+      - "admins"
+      summary: "Lista todas as sugestões deixadas por usuários"
+      description: "Lista todas as sugestões de usuários podendo conter alguns filtros\n"
+      operationId: "getAllSuggestions"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "skip"
+        in: "query"
+        description: "Número de sugestões a pular para paginação"
+        required: false
+        type: "integer"
+        minimum: 0
+        format: "int32"
+      - name: "limit"
+        in: "query"
+        description: "Número máximo de sugestões a retornar"
+        required: false
+        type: "integer"
+        maximum: 50
+        minimum: 0
+        format: "int32"
+      responses:
+        200:
+          description: "Lista de sugestões"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Suggestion"
+        400:
+          description: "Parâmetros inválidos"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Admins"
+  /users/{id}:
+    get:
+      tags:
+      - "users"
+      summary: "Recupera o perfil de um usuário"
+      description: "Recupera o perfil de um usuário\n"
+      operationId: "getUserProfile"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id do usuário"
+        required: true
+        type: "string"
+        format: "objectId"
+      responses:
+        200:
+          description: "Perfil do usuário"
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: "Parâmetros inválidos"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        404:
+          description: "Usuário não encontrado"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Users"
+  /users:
+    post:
+      tags:
+      - "users"
+      summary: "Cadastro de um novo usuário"
+      description: "Cadastra um novo usuário"
+      operationId: "postUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "Usuário a ser cadastrado"
+        required: true
+        schema:
+          $ref: "#/definitions/RegisterUser"
+      responses:
+        201:
+          description: "Usuário cadastrado"
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: "Objeto de usuário inválido"
+        409:
+          description: "Usuário com este email já existe"
+        500:
+          description: "Erro interno de servidor"
+      x-swagger-router-controller: "Users"
+    put:
+      tags:
+      - "users"
+      summary: "Edita um usuário"
+      description: "Edita um usuário"
+      operationId: "putUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "Usuário a ser editado"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "Usuário editado"
+        400:
+          description: "Objeto de usuário inválido"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Users"
+  /offers/{id}:
+    post:
+      tags:
+      - "users"
+      summary: "Cria uma oferta para uma solicitação"
+      description: "Cria uma oferta para uma solicitação"
+      operationId: "postOffers"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id da solicitação"
+        required: true
+        type: "string"
+        format: "objectId"
+      responses:
+        201:
+          description: "Oferta efetuada"
+        400:
+          description: "Parâmetros inválidos"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        404:
+          description: "Solicitação não encontrada"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Users"
+    put:
+      tags:
+      - "users"
+      summary: "Aceita uma oferta de um prestador de serviço"
+      description: "Aceita uma oferta de um prestador de serviço"
+      operationId: "putOffer"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id da solicitação"
+        required: true
+        type: "string"
+        format: "objectId"
+      - name: "providerId"
+        in: "query"
+        description: "Id do prestador de serviço que ofertou"
+        required: true
+        type: "string"
+        format: "objectId"
+      responses:
+        200:
+          description: "Oferta aceita"
+        400:
+          description: "Parâmetros inválidos"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        404:
+          description: "Solicitação não encontrada"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Users"
+    delete:
+      tags:
+      - "users"
+      summary: "Rejeita uma oferta de um prestador"
+      description: "Rejeita uma oferta de um prestador"
+      operationId: "deleteOffer"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id da solicitação"
+        required: true
+        type: "string"
+        format: "objectId"
+      - name: "providerId"
+        in: "query"
+        description: "Id do prestador de serviço que ofertou"
+        required: true
+        type: "string"
+        format: "objectId"
+      responses:
+        200:
+          description: "Oferta rejeitada"
+        400:
+          description: "Parâmetros inválidos"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        404:
+          description: "Solicitação não encontrada"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Users"
+  /requests/{id}:
+    get:
+      tags:
+      - "users"
+      summary: "Recupera os dados de uma solicitação"
+      description: "Recupera os dados de uma solicitação\n"
+      operationId: "getRequestById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id da solicitação"
+        required: true
+        type: "string"
+        format: "objectId"
+      responses:
+        200:
+          description: "Dados da solicitação"
+          schema:
+            $ref: "#/definitions/Request"
+        400:
+          description: "Parâmetros inválidos"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        404:
+          description: "Solicitação não encontrada"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Users"
+    delete:
+      tags:
+      - "users"
+      summary: "Remove uma solicitação"
+      description: "Remove uma solicitação"
+      operationId: "deleteRequest"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id da solicitação"
+        required: true
+        type: "string"
+        format: "objectId"
+      responses:
+        200:
+          description: "Solicitação removida"
+        400:
+          description: "Parâmetros inválidos"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        404:
+          description: "Solicitação não encontrada"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Users"
+  /requests:
+    post:
+      tags:
+      - "users"
+      summary: "Efetua uma solicitação de serviço"
+      description: "Efetua uma solicitação de serviço"
+      operationId: "postRequest"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "request"
+        description: "Objeto de solicitação"
+        required: true
+        schema:
+          $ref: "#/definitions/Request"
+      responses:
+        201:
+          description: "Solicitação efetuada"
+        400:
+          description: "Objeto de solicitação inválido"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        404:
+          description: "Usuário não encontrado"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Users"
+    put:
+      tags:
+      - "users"
+      summary: "Edita uma solicitação"
+      description: "Edita uma solicitação"
+      operationId: "putRequest"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "request"
+        description: "Solicitação a ser editada"
+        required: true
+        schema:
+          $ref: "#/definitions/Request"
+      responses:
+        200:
+          description: "Solicitação editada"
+        400:
+          description: "Objeto de solicitação inválido"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        404:
+          description: "Solicitação não encontrada"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Users"
+  /requests/{id}/evaluate:
+    put:
+      tags:
+      - "users"
+      summary: "Avalia um serviço"
+      description: "Avalia um serviço"
+      operationId: "postEvaluate"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id da solicitação"
+        required: true
+        type: "string"
+        format: "objectId"
+      - in: "body"
+        name: "evaluation"
+        description: "Avaliação do usuário"
+        required: true
+        schema:
+          $ref: "#/definitions/Evaluation"
+      responses:
+        200:
+          description: "Avaliação efetuada"
+        400:
+          description: "Objeto de avaliação inválido"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        404:
+          description: "Solicitação não encontrada"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Users"
+  /requests/{id}/message:
+    post:
+      tags:
+      - "users"
+      summary: "Envia mensagem para um usuário"
+      description: "Envia mensagem para um usuário"
+      operationId: "postMessage"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id da solicitação"
+        required: true
+        type: "string"
+        format: "objectId"
+      - in: "body"
+        name: "message"
+        description: "Mensagem"
+        required: true
+        schema:
+          $ref: "#/definitions/Message"
+      responses:
+        200:
+          description: "Mensagem enviada"
+        400:
+          description: "Objeto de mensagem inválido"
+        401:
+          description: "Não autorizado"
+        403:
+          description: "Não permitido"
+        404:
+          description: "Solicitação não encontrada"
+        500:
+          description: "Erro interno de servidor"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Users"
+  /authenticate:
+    post:
+      tags:
+      - "admins"
+      - "users"
+      summary: "Autentica um usuário no sistema liberando seu token de acesso"
+      description: "Autnetica um usuário no sistema liberando seu token de acesso"
+      operationId: "authUser"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "credentials"
+        description: "Dados de autenticação de usuário"
+        required: true
+        schema:
+          $ref: "#/definitions/Auth"
+      responses:
+        200:
+          description: "Usuário autenticado"
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: "Objeto de autenticação inválido"
+        404:
+          description: "Email não encontrado"
+        500:
+          description: "Erro interno de servidor"
+      x-swagger-router-controller: "Admins"
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "x-access-token"
+    in: "header"
+definitions:
+  RegisterUser:
+    type: "object"
+    required:
+    - "cellphone"
+    - "confirm_password"
+    - "email"
+    - "name"
+    - "password"
+    properties:
+      name:
+        type: "string"
+        example: "Bruno"
+        description: "Nome do usuário"
+        minLength: 3
+        maxLength: 100
+      email:
+        type: "string"
+        example: "bruno@email.com"
+        description: "Email do usuário"
+        minLength: 3
+        maxLength: 100
+      password:
+        type: "string"
+        example: "Senh@123"
+        minLength: 8
+        maxLength: 100
+      confirm_password:
+        type: "string"
+        example: "Senh@123"
+        minLength: 8
+        maxLength: 100
+      cellphone:
+        type: "number"
+        example: 1.2999999999E10
+        description: "Celular do usuário"
+    example:
+      password: "Senh@123"
+      name: "Bruno"
+      cellphone: 1.2999999999E10
+      email: "bruno@email.com"
+      confirm_password: "Senh@123"
+  Auth:
+    type: "object"
+    required:
+    - "email"
+    - "password"
+    properties:
+      email:
+        type: "string"
+        example: "bruno@email.com"
+        description: "Email do usuário"
+        minLength: 3
+        maxLength: 100
+      password:
+        type: "string"
+        example: "Senh@123"
+        minLength: 8
+        maxLength: 100
+    example:
+      password: "Senh@123"
+      email: "bruno@email.com"
+  User:
+    type: "object"
+    required:
+    - "_id"
+    - "cellphone"
+    - "email"
+    - "name"
+    - "password"
+    properties:
+      _id:
+        type: "string"
+        format: "objectId"
+        example: "507f191e810c19729de860ea"
+        description: "Id do usuário"
+      name:
+        type: "string"
+        example: "Bruno"
+        description: "Nome do usuário"
+        minLength: 3
+        maxLength: 100
+      email:
+        type: "string"
+        example: "bruno@email.com"
+        description: "Email do usuário"
+        minLength: 3
+        maxLength: 100
+      password:
+        type: "string"
+        example: "Senh@123"
+        minLength: 8
+        maxLength: 100
+      cellphone:
+        type: "number"
+        example: 1.2999999999E10
+        description: "Celular do usuário"
+      picture:
+        type: "string"
+        format: "url"
+        example: "https://res.cloudinary.com/brunoedu/image/upload/v1508965936/sample.jpg"
+        description: "Foto do usuário"
+      lat:
+        type: "number"
+        example: 40.7143528
+        description: "Latitude do usuário capturada de tempos em tempos para cálculo\
+          \ das distâncias nos filtros de busca"
+      lng:
+        type: "number"
+        example: -74.0059731
+        description: "Longitude do usuário capturada de tempos em tempos para cálculo\
+          \ das distâncias nos filtros de busca"
+      push_web_token:
+        type: "string"
+        format: "guid"
+        example: "50a5ecd2-bebc-440f-9486-bd17b9503a21"
+        description: "Token do OneSignal para envio de push notifications web"
+      push_mobile_token:
+        type: "string"
+        format: "guid"
+        example: "50a5ecd2-bebc-440f-9486-bd17b9503a21"
+        description: "Token do OneSignal para envio de push notifications mobile"
+      socket_token:
+        type: "string"
+        example: "8411473621394413000"
+        description: "Token do Socket.io para comunicação via chat"
+      push_web_enabled:
+        type: "boolean"
+        example: true
+        description: "Configuração de recebimento de notificações push na web"
+      push_mobile_enabled:
+        type: "boolean"
+        example: true
+        description: "Configuração de recebimento de notificações push mobile"
+      email_enabled:
+        type: "boolean"
+        example: true
+        description: "Configuração de recebimento de emails"
+      tutorial_completed:
+        type: "boolean"
+        example: true
+        description: "Verificação ser usuário já passou pelo tutoprial"
+      categories:
+        type: "array"
+        description: "Lista de categorias de serviço"
+        items:
+          $ref: "#/definitions/JobCategoryUser"
+      type:
+        type: "string"
+        example: "user"
+        description: "Tipo de usuário (user/admin)"
+        enum:
+        - "user"
+        - "admin"
+      rating:
+        type: "number"
+        example: 4.5
+        description: "Média de avaliações do usuário"
+      jobs_accepted:
+        type: "number"
+        example: 10.0
+        description: "Serviços aceitados"
+      jobs_requested:
+        type: "number"
+        example: 2.0
+        description: "Serviços solicitados"
+    example:
+      lng: -74.0059731
+      email_enabled: true
+      jobs_requested: 2.0
+      rating: 4.5
+      push_mobile_token: "50a5ecd2-bebc-440f-9486-bd17b9503a21"
+      push_web_enabled: true
+      tutorial_completed: true
+      type: "user"
+      picture: "https://res.cloudinary.com/brunoedu/image/upload/v1508965936/sample.jpg"
+      password: "Senh@123"
+      push_web_token: "50a5ecd2-bebc-440f-9486-bd17b9503a21"
+      push_mobile_enabled: true
+      jobs_accepted: 10.0
+      name: "Bruno"
+      cellphone: 1.2999999999E10
+      socket_token: "8411473621394413000"
+      _id: "507f191e810c19729de860ea"
+      categories:
+      - min_value: 150.0
+        km: 30.0
+        name: "Encanador"
+        icon: "https://res.cloudinary.com/brunoedu/image/upload/v1508965936/sample.jpg"
+        description: "Você conserta sistemas hidráulicos"
+        _id: "507f191e810c19729de860ea"
+      - min_value: 150.0
+        km: 30.0
+        name: "Encanador"
+        icon: "https://res.cloudinary.com/brunoedu/image/upload/v1508965936/sample.jpg"
+        description: "Você conserta sistemas hidráulicos"
+        _id: "507f191e810c19729de860ea"
+      email: "bruno@email.com"
+      lat: 40.7143528
+  JobCategory:
+    type: "object"
+    required:
+    - "_id"
+    - "description"
+    - "icon"
+    - "name"
+    properties:
+      _id:
+        type: "string"
+        format: "objectId"
+        example: "507f191e810c19729de860ea"
+        description: "Id da categoria de serviço"
+      name:
+        type: "string"
+        example: "Encanador"
+        description: "Nome da categoria de serviço"
+        minLength: 3
+        maxLength: 50
+      description:
+        type: "string"
+        example: "Você conserta sistemas hidráulicos"
+        description: "Descrição da categoria de serviço"
+        minLength: 3
+        maxLength: 256
+      icon:
+        type: "string"
+        format: "url"
+        example: "https://res.cloudinary.com/brunoedu/image/upload/v1508965936/sample.jpg"
+        description: "Ícone da categoria"
+    example:
+      name: "Encanador"
+      icon: "https://res.cloudinary.com/brunoedu/image/upload/v1508965936/sample.jpg"
+      description: "Você conserta sistemas hidráulicos"
+      _id: "507f191e810c19729de860ea"
+  JobCategoryUser:
+    type: "object"
+    required:
+    - "_id"
+    - "description"
+    - "icon"
+    - "km"
+    - "min_value"
+    - "name"
+    properties:
+      _id:
+        type: "string"
+        format: "objectId"
+        example: "507f191e810c19729de860ea"
+        description: "Id da categoria de serviço"
+      name:
+        type: "string"
+        example: "Encanador"
+        description: "Nome da categoria de serviço"
+        minLength: 3
+        maxLength: 50
+      description:
+        type: "string"
+        example: "Você conserta sistemas hidráulicos"
+        description: "Descrição da categoria de serviço"
+        minLength: 3
+        maxLength: 256
+      icon:
+        type: "string"
+        format: "url"
+        example: "https://res.cloudinary.com/brunoedu/image/upload/v1508965936/sample.jpg"
+        description: "Ícone da categoria"
+      min_value:
+        type: "number"
+        example: 150.0
+        description: "Valor mínimo cobrado pelo serviço"
+      km:
+        type: "number"
+        example: 30.0
+        description: "Km máxima de atendimento"
+    example:
+      min_value: 150.0
+      km: 30.0
+      name: "Encanador"
+      icon: "https://res.cloudinary.com/brunoedu/image/upload/v1508965936/sample.jpg"
+      description: "Você conserta sistemas hidráulicos"
+      _id: "507f191e810c19729de860ea"
+  Request:
+    type: "object"
+    required:
+    - "_id"
+    - "date"
+    - "description"
+    - "job_category_id"
+    - "range"
+    - "requester"
+    - "value"
+    properties:
+      _id:
+        type: "string"
+        format: "objectId"
+        example: "507f191e810c19729de860ea"
+        description: "Id da solicitação"
+      job_category_id:
+        type: "string"
+        format: "objectId"
+        example: "507f191e810c19729de860ea"
+        description: "Id da categoria de serviço"
+      date:
+        type: "string"
+        format: "date-time"
+        example: "2018-02-18T16:00:00Z"
+        description: "Data do serviço"
+      value:
+        type: "number"
+        example: 150.0
+        description: "Valor que o usuário deseja pagar pelo serviço"
+      range:
+        type: "number"
+        example: 15.0
+        description: "Km máxima de busca de prestadores de serviço"
+      description:
+        type: "string"
+        example: "Preciso que uma única parede seja pintada"
+        description: "Descrição do serviço solicitado"
+      requester:
+        type: "string"
+        format: "objectId"
+        example: "507f191e810c19729de860ea"
+        description: "Id do usuário solicitante"
+      provider:
+        type: "string"
+        format: "objectId"
+        example: "507f191e810c19729de860ea"
+        description: "Id do usuário prestador de serviço que aceitou o serviço"
+      rating:
+        type: "number"
+        example: 4.0
+        description: "Avaliação do serviço"
+      rating_description:
+        type: "string"
+        example: "Muito bom"
+        description: "Descrição da avaliação"
+      offers:
+        type: "array"
+        description: "Lista de ofertas para a solicitação de serviço"
+        items:
+          $ref: "#/definitions/Offer"
+      messages:
+        type: "array"
+        description: "Lista de mensagens após a liberação do chat entre usuários"
+        items:
+          $ref: "#/definitions/Message"
+    example:
+      date: "2018-02-18T16:00:00Z"
+      requester: "507f191e810c19729de860ea"
+      offers:
+      - provider: "507f191e810c19729de860ea"
+        rejected: false
+      - provider: "507f191e810c19729de860ea"
+        rejected: false
+      provider: "507f191e810c19729de860ea"
+      rating: 4.0
+      range: 15.0
+      description: "Preciso que uma única parede seja pintada"
+      messages:
+      - date: "2018-02-18T16:00:00Z"
+        request: "507f191e810c19729de860ea"
+        read: false
+        receiver: "507f191e810c19729de860ea"
+        sender: "507f191e810c19729de860ea"
+        message: "Olá, tudo bem?"
+      - date: "2018-02-18T16:00:00Z"
+        request: "507f191e810c19729de860ea"
+        read: false
+        receiver: "507f191e810c19729de860ea"
+        sender: "507f191e810c19729de860ea"
+        message: "Olá, tudo bem?"
+      _id: "507f191e810c19729de860ea"
+      job_category_id: "507f191e810c19729de860ea"
+      rating_description: "Muito bom"
+      value: 150.0
+  Offer:
+    type: "object"
+    required:
+    - "provider"
+    - "rejected"
+    properties:
+      provider:
+        type: "string"
+        format: "objectId"
+        example: "507f191e810c19729de860ea"
+        description: "Id do prestador de serviço que aceitou a oferta"
+      rejected:
+        type: "boolean"
+        example: false
+        description: "Representa se o solicitante recusou a oferta"
+    example:
+      provider: "507f191e810c19729de860ea"
+      rejected: false
+  Evaluation:
+    type: "object"
+    required:
+    - "description"
+    - "rating"
+    properties:
+      rating:
+        type: "number"
+        example: 4.0
+        description: "Avaliação do serviço"
+      description:
+        type: "string"
+        example: "Muito bom"
+        description: "Descrição da avaliação"
+    example:
+      rating: 4.0
+      description: "Muito bom"
+  SuggestionCategory:
+    type: "object"
+    required:
+    - "_id"
+    - "description"
+    - "name"
+    properties:
+      _id:
+        type: "string"
+        format: "objectId"
+        example: "507f191e810c19729de860ea"
+        description: "Id da categoria de sugestão"
+      name:
+        type: "string"
+        example: "Melhorias"
+        description: "Nome da categoria de sugestão"
+        minLength: 3
+        maxLength: 50
+      description:
+        type: "string"
+        example: "Descreva o que podemos melhorar para melhor atendê-lo"
+        description: "Descrição da categoria de sugestão"
+        minLength: 3
+        maxLength: 256
+    example:
+      name: "Melhorias"
+      description: "Descreva o que podemos melhorar para melhor atendê-lo"
+      _id: "507f191e810c19729de860ea"
+  Suggestion:
+    type: "object"
+    required:
+    - "_id"
+    - "description"
+    - "suggestion_category"
+    properties:
+      _id:
+        type: "string"
+        format: "objectId"
+        example: "507f191e810c19729de860ea"
+        description: "Id da sugestão"
+      suggestion_category:
+        $ref: "#/definitions/SuggestionCategory"
+      description:
+        type: "string"
+        example: "Olá, gostaria que o aplicativo carregasse mais rapidamente."
+        description: "Texto da sugestão do usuário"
+        minLength: 3
+        maxLength: 256
+    example:
+      suggestion_category:
+        name: "Melhorias"
+        description: "Descreva o que podemos melhorar para melhor atendê-lo"
+        _id: "507f191e810c19729de860ea"
+      description: "Olá, gostaria que o aplicativo carregasse mais rapidamente."
+      _id: "507f191e810c19729de860ea"
+  Message:
+    type: "object"
+    required:
+    - "date"
+    - "message"
+    - "receiver"
+    - "request"
+    - "sender"
+    properties:
+      sender:
+        type: "string"
+        format: "objectId"
+        example: "507f191e810c19729de860ea"
+        description: "Id do usuário que enviou a mensagem"
+      receiver:
+        type: "string"
+        format: "objectId"
+        example: "507f191e810c19729de860ea"
+        description: "Id do usuário que recebeu a mensagem"
+      request:
+        type: "string"
+        format: "objectId"
+        example: "507f191e810c19729de860ea"
+        description: "Id da solicitação de serviço"
+      message:
+        type: "string"
+        example: "Olá, tudo bem?"
+        description: "Corpo da mensagem"
+      date:
+        type: "string"
+        format: "date-time"
+        example: "2018-02-18T16:00:00Z"
+        description: "Data do serviço"
+      read:
+        type: "boolean"
+        example: false
+        description: "Representa se o usuário destino já leu a mensagem"
+    example:
+      date: "2018-02-18T16:00:00Z"
+      request: "507f191e810c19729de860ea"
+      read: false
+      receiver: "507f191e810c19729de860ea"
+      sender: "507f191e810c19729de860ea"
+      message: "Olá, tudo bem?"

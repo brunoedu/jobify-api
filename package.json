@@ -1,0 +1,32 @@
+{
+  "name": "jobify-api",
+  "version": "1.0.0",
+  "description": "Construção da API do Jobify projeto de conclusão da Pós-graduação em Desenvolvimento de Sistemas Web e Mobile",
+  "main": "app.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunoedu/jobify-api.git"
+  },
+  "keywords": [
+    "jobify",
+    "work",
+    "job",
+    "unisal"
+  ],
+  "author": "Bruno Oliveira, Gabriel Conceição e Ian Pablo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brunoedu/jobify-api/issues"
+  },
+  "homepage": "https://github.com/brunoedu/jobify-api#readme",
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "swagger-tools": "0.10.1"
+  }
+}
